@@ -1,0 +1,25 @@
+name: CICD PIPLELINE DEMO
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  TEST:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Download node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "install"
+        run: npm ci
+
+      - name: RUN TEST
+        run: test #given in package.json script
+
+      - name: PRINT SUCCESS
+        run: echo "this workflow ends here"
