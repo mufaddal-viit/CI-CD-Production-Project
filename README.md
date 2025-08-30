@@ -10,7 +10,7 @@ Deploy the containerized application automatically to an AWS EC2 instance
 
 ## 🏗 Workflow File
 
-# Path: .github/workflows/ci-cd.yml
+### Path: .github/workflows/ci-cd.yml
 
 The pipeline is structured into three jobs:
 
