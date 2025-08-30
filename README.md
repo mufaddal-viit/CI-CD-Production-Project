@@ -8,7 +8,49 @@ Build and push a Docker image to AWS Elastic Container Registry (ECR)
 Deploy the containerized application automatically to an AWS EC2 instance
 - This repository does not focus on the Node.js application itself — instead, the emphasis is on the pipeline.
 
-## 🏗 Workflow File
+## 🏗 Workflow:
+        ┌──────────────┐
+        │   Developer  │
+        │   pushes to  │
+        │     main     │
+        └──────┬───────┘
+               │
+               ▼
+        ┌──────────────┐
+        │    Job 1:    │
+        │     TEST     │
+        │ - Restore    │
+        │   cache      │
+        │ - Install    │
+        │   deps       │
+        │ - Run tests  │
+        │ - Upload     │
+        │   coverage   │
+        └──────┬───────┘
+               │  (only if success)
+               ▼
+        ┌──────────────┐
+        │    Job 2:    │
+        │ BUILD & PUSH │
+        │ - Configure  │
+        │   AWS creds  │
+        │ - Build      │
+        │   Docker img │
+        │ - Push to    │
+        │   ECR        │
+        └──────┬───────┘
+               │  (only if success)
+               ▼
+        ┌──────────────┐
+        │    Job 3:    │
+        │   DEPLOY     │
+        │ - SSH to EC2 │
+        │ - Pull latest│
+        │   Docker img │
+        │ - Restart    │
+        │   container  │
+        └──────────────┘
+
 
 ### Path: .github/workflows/ci-cd.yml
 
